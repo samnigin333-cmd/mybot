@@ -10,7 +10,6 @@ ADMIN_CALLBACKS = [
     "export_word", "export_excel", "export_pdf",
     "admin_back", "admin_stats"
 ]
-
 WORKER_CALLBACKS = [
     "att_in", "att_out", "my_kpi", "write_report", "my_hours", "my_stats"
 ]
@@ -18,7 +17,6 @@ WORKER_CALLBACKS = [
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     worker = db.get_worker_by_telegram(user.id)
-
     if user.id in ADMIN_IDS:
         keyboard = [
             [InlineKeyboardButton("👨‍💼 Admin panelga kirish", callback_data="goto_admin")]
@@ -54,7 +52,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "• 🕐 Ish soatlaringizni kuzatish\n"
             "• 📊 Davomatni belgilash\n\n"
             "Davom etish uchun login va parolingiz kerak.\n"
-            "Login/parol uchun adminга murojaat qiling.\n\n"
+            "Login/parol uchun adminga murojaat qiling.\n\n"
             "/login — Tizimga kirish",
             parse_mode="Markdown",
             reply_markup=InlineKeyboardMarkup(keyboard)
@@ -63,12 +61,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def combined_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     data = query.data
-
     if data == "goto_admin":
         from admin import admin_menu_callback
         await admin_menu_callback(update, context)
     elif data == "goto_menu":
-       from worker import worker_menu_callback
+        from worker import worker_menu_callback
         await worker_menu_callback(update, context)
     elif data == "goto_login":
         await query.answer()
@@ -80,5 +77,4 @@ async def combined_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif any(data.startswith(cb) for cb in WORKER_CALLBACKS):
         await worker_callback(update, context)
     else:
-        # Noma'lum callback
         await query.answer("❌ Noma'lum buyruq", show_alert=False)
