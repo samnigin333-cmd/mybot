@@ -2,9 +2,9 @@ import logging
 import asyncio
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler
 import database as db
-from handlers.admin import get_admin_conv_handler, admin_menu, ADMIN_IDS
-from handlers.worker import get_login_conv_handler, get_report_conv_handler, worker_menu
-from handlers.common import start, combined_callback
+from admin import get_admin_conv_handler, admin_menu, ADMIN_IDS
+from worker import get_login_conv_handler, get_report_conv_handler, worker_menu
+from common import start, combined_callback
 
 TOKEN = "8654469405:AAEpEH7wKLz-0Ce4P0xfNP4RBohWO2PJ-VM"
 MY_TELEGRAM_ID = 1131598666
