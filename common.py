@@ -1,7 +1,7 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ContextTypes
-from handlers.admin import admin_callback, ADMIN_IDS
-from handlers.worker import worker_callback
+from admin import admin_callback, ADMIN_IDS
+from worker import worker_callback
 import database as db
 
 ADMIN_CALLBACKS = [
@@ -65,10 +65,10 @@ async def combined_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data = query.data
 
     if data == "goto_admin":
-        from handlers.admin import admin_menu_callback
+        from admin import admin_menu_callback
         await admin_menu_callback(update, context)
     elif data == "goto_menu":
-        from handlers.worker import worker_menu_callback
+       from worker import worker_menu_callback
         await worker_menu_callback(update, context)
     elif data == "goto_login":
         await query.answer()
